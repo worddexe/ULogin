@@ -147,13 +147,13 @@ public class ULoginMain extends JavaPlugin {
                 long currentTime = System.currentTimeMillis();
                 long lastMessageTime = messageCooldown.getOrDefault(uuid, 0L);
 
-                // Cancel the movement
+            
                 event.setCancelled(true);
 
-                // Check if enough time has elapsed since the last message
+                // If 5 seconds has passed then it send the message to the user again.
                 if (currentTime - lastMessageTime >= 5000) {
                     player.sendMessage("§cYou must be logged in to move! Use /login <password> to log in or /register <password> to register.");
-                    messageCooldown.put(uuid, currentTime); // Update the last message time
+                    messageCooldown.put(uuid, currentTime);
                 }
             }
         }
@@ -171,11 +171,11 @@ public class ULoginMain extends JavaPlugin {
             Player player = event.getPlayer();
             UUID uuid = player.getUniqueId();
 
-            // Check if the player is not logged in
+            // Check if the player is logged in
             if (!plugin.isLoggedIn(uuid)) {
                 String command = event.getMessage().toLowerCase();
 
-                // Allow only /login, /register, and /autologin
+                // Prevents commands besides /login, /register, and /autologin from being run by the user. (Until they have logged in)
                 if (!command.startsWith("/login") && !command.startsWith("/register") && !command.startsWith("/autologin")) {
                     event.setCancelled(true);
                     player.sendMessage("§cYou must log in to use commands.");
@@ -193,9 +193,9 @@ public class ULoginMain extends JavaPlugin {
 
         @EventHandler
         public void onPlayerQuit(PlayerQuitEvent event) {
-            Player player = event.getPlayer(); // Valid way to get player
+            Player player = event.getPlayer();
             UUID uuid = player.getUniqueId();
-            plugin.setLoggedIn(uuid, false); // Set the player as logged out
+            plugin.setLoggedIn(uuid, false); // Logs out player so they have to log back in again upon rejoin.
         }
     }
 }
@@ -232,9 +232,9 @@ class RegisterCommand implements CommandExecutor {
             return true;
         }
 
-        // Register the player
+        // Registers the user with password.
         plugin.registerPlayer(uuid, args[0]);
-        plugin.setLoggedIn(uuid, true); // Log the player in automatically
+        plugin.setLoggedIn(uuid, true); // Automatically logs in the player so they don't have to run the command.
         player.sendMessage("§aRegistration successful! You are now logged in.");
         return true;
     }
