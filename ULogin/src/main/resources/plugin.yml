@@ -1,0 +1,32 @@
+name: UltimateLogin
+version: 1.0.0
+main: me.worddexe.uLogin.ULoginMain
+api-version: 1.21
+author: worddexe
+description: A login system for both premium and non-premium users.
+commands:
+  register:
+    description: Register an account with a password.
+    usage: /register <password>
+  login:
+    description: Login to your account.
+    usage: /login <password>
+  resetpassword:
+    description: Reset a player's password.
+    usage: /resetpassword <username>
+    permission: ulogin.admin
+  changepassword:
+    description: Change a player's password.
+    usage: /changepassword <username> <new password>
+    permission: ulogin.admin
+  autologin:
+    description: Enable automatic login for premium accounts.
+    usage: /autologin
+  autologindisable:
+    description: Disable automatic login for a player.
+    usage: /autologindisable <username>
+    permission: ulogin.admin
+permissions:
+  ulogin.admin:
+    description: Allows access to admin login commands.
+    default: op
