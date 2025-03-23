@@ -1,0 +1,19 @@
+name: uLogin
+main: me.worddexe.uLogin.ULogin
+version: 1.0.0
+author: worddexe
+api-version: 1.21
+commands:
+  register:
+    description: Registers a new user with a password
+    usage: /register <password>
+  login:
+    description: Logs in an existing user
+    usage: /login <password>
+  unregister:
+    description: Unregisters a user
+    usage: /unregister <username>
+permissions:
+  admin.unregister:
+    description: Allows admin to unregister players
+    default: op
